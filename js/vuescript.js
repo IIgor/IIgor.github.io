@@ -52,7 +52,12 @@ new Vue({
                 this.showInfo = true
                 this.showUsers = false
             })
+            last(this.info.last_battle_time)
+        },
+        last: function(date){
+            return moment(date).locale("ru").format('LLL')
         }
     },
+    
 
 })
