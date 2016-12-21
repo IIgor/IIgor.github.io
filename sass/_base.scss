@@ -1,0 +1,30 @@
+$bg-color:  rgb(0, 27, 42);
+$text-color: rgb(255, 255, 255);
+$link-color: rgb(255, 0, 0);
+$border-color: #575b5d;
+$error: #e60039;
+
+$main-width: 1024px;
+$fontSize: 16px;
+
+
+*{
+    box-sizing: border-box;
+}
+body{
+    background: $bg-color;
+    color: $text-color;
+    font-family: 'Roboto', sans-serif;
+    font-size: $fontSize;
+    line-height: 1.25;
+     @media screen and (max-width: 767px){
+        padding: 0 20px;
+    }
+}
+a{
+   color: $link-color; 
+}
+#wrapper{
+    max-width: $main-width;
+    margin: 0 auto;
+}

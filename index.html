@@ -3,23 +3,55 @@
 <head>
     <title>Wot Statistick</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700&amp;subset=cyrillic" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+    <svg style="display: none;">
+        <symbol id="search" viewBox="0 0 512.004 512.004" >
+            <rect style="fill: #5195af;" transform="matrix(-0.7071 -0.7071 0.7071 -0.7071 342.49 826.811)" x="305.902" y="334.034" width="73.163" height="16.879" />
+            <path style="fill: #111449;" d="M 56.033 326.569 c 74.706 74.706 195.831 74.706 270.538 0 L 210.288 172.315 L 56.033 56.03 C -18.675 130.738 -18.675 251.861 56.033 326.569 Z" />
+            <path style="fill: #2f5e88;" d="M 56.033 56.03 l 270.538 270.538 c 74.706 -74.706 74.706 -195.831 0 -270.538 S 130.739 -18.676 56.033 56.03 Z" />
+            <path style="fill: #78e3ec;" d="M 83.885 83.884 l 214.832 214.832 c 59.324 -59.324 59.324 -155.507 0 -214.832 C 239.393 24.559 143.209 24.559 83.885 83.884 Z" />
+            <path style="fill: #d0fbfd;" d="M 278.825 103.776 C 219.501 44.451 132.223 35.545 83.886 83.884 c -59.324 59.324 -59.324 155.507 0 214.832 s 155.507 59.324 214.832 0 C 347.055 250.377 338.149 163.1 278.825 103.776 Z" />
+            <polygon style="fill: #ff754f;" points="374.312,342.477 512.002,480.168 496.089,496.082 419.287,435.192 358.399,358.391" />
+            <rect style="fill: #ff4719;" transform="matrix(0.7071 0.7071 -0.7071 0.7071 430.541 -169.013)" x="321.925" y="423.95" width="194.723" height="22.505" />
+            <path style="fill: #2f5e88;" d="M 291.147 208.178 c 0.922 -5.492 1.427 -11.125 1.427 -16.879 c 0 -5.753 -0.505 -11.388 -1.427 -16.879 H 256.69 c -1.594 -6.193 -4.058 -12.036 -7.232 -17.408 l 24.373 -24.373 c -6.57 -9.227 -14.643 -17.3 -23.87 -23.87 l -24.373 24.373 c -5.372 -3.174 -11.214 -5.637 -17.408 -7.232 V 91.453 c -5.492 -0.922 -11.125 -1.427 -16.879 -1.427 c -5.753 0 -11.388 0.505 -16.879 1.427 v 34.457 c -6.193 1.594 -12.036 4.058 -17.408 7.232 l -24.373 -24.373 c -9.227 6.57 -17.3 14.643 -23.87 23.87 l 24.373 24.373 c -3.174 5.372 -5.638 11.213 -7.232 17.408 H 91.456 c -0.922 5.491 -1.427 11.125 -1.427 16.879 c 0 5.755 0.505 11.386 1.427 16.879 h 34.457 c 1.594 6.193 4.058 12.036 7.232 17.408 l -24.373 24.373 c 6.57 9.227 14.643 17.301 23.87 23.87 l 24.373 -24.373 c 5.372 3.174 11.214 5.637 17.408 7.232 v 34.457 c 5.491 0.922 11.125 1.427 16.879 1.427 c 5.753 0 11.388 -0.505 16.879 -1.427 v -34.457 c 6.193 -1.594 12.036 -4.058 17.408 -7.232 l 24.373 24.373 c 9.227 -6.57 17.3 -14.643 23.87 -23.87 l -24.373 -24.373 c 3.174 -5.372 5.637 -11.213 7.232 -17.408 L 291.147 208.178 L 291.147 208.178 Z M 191.301 225.056 c -18.644 0 -33.758 -15.113 -33.758 -33.758 s 15.113 -33.757 33.758 -33.757 s 33.757 15.113 33.757 33.757 S 209.944 225.056 191.301 225.056 Z" />
+        </symbol>
+    </svg>
+</svg>
     <div id="wrapper">
-        <a v-bind:href="this.login">Login</a>
-       <form action="#" id="sendForm" v-on:submit.prevent="getName">
-           <input type="text" name="search" class="inputName">
-           <button type="submit">Send</button>
-       </form>
+        <header class="header">
+            <a href="#" class="logo">
+                <img src="img/wot-logo.png" alt="">
+            </a>
+            <!--<a v-bind:href="this.login">Login</a>-->
+            <form  v-on:submit.prevent="getName">
+                <fieldset class="header_fieldset">
+                    <label class="header_label-search">
+                        <input type="text" name="search"  autocomplete="off" :class="{ error: isError}" v-model="inputName" class="header_label-search_inputName">
+                        <span class="header_label-search_search-button">
+                            <svg>
+                                <use xlink:href="#search"/>
+                            </svg>
+                        </span>
+                    </label>
+                    <ul v-show="showUsers" class="list">
+                        <li v-for="name in namesUser">
+                            <a v-bind:href="name.account_id"  v-on:click.prevent="getFullInfo">{{ name.nickname }}</a>
+                        </li>
+                    </ul>
+                </fieldset>
+            </form>
+
+       </header>
        
         <div class="result">
-            <p v-for="name in names">
-                <a v-bind:href="name.account_id"  v-on:click.prevent="getFullInfo">{{ name.nickname }}</a>
-            </p>
+        
 
-            <pre class="pre">{{ this.info }}</pre>
+            <pre class="pre"  v-if="showInfo">{{ this.info }}</pre>
+            <p>{{ this.searchInput }}</p>
         </div>
         <div class="error" v-if="erroe">Нету пользователей</div>
        
