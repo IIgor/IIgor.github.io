@@ -6,7 +6,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700&amp;subset=cyrillic" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
+    <script src="scripts\jquery.min.js"></script>
     <script src="scripts\moment.js"></script>
     <script src="scripts\locate\ru.js"></script>
 </head>
@@ -50,30 +50,18 @@
 
        </header>
        
-        <div class="result">
-        
-                    <p>Последний бой: {{ last }}</p>
-<!--3600 * 24 * 1000-->
-            <pre class="pre"  v-if="showInfo">{{ this.info }}</pre>
-            <p>{{ this.searchInput }}</p>
+        <div class="result" v-show="showInfo">
+             <h1>{{ this.info.nickname }}</h1>
+             
+             <div>Дата регистрации: {{ getDay(this.info.created_at, false) }}</div>
+             <div>Последний бой: {{ getDay(this.info.last_battle_time, true) }} </div>
         </div>
-        <div class="error" v-if="erroe">Нету пользователей</div>
+        <pre>
+        {{ this.info }}
+        </pre>
+        <div class="error"></div>
        
     </div>
-    
-
-    <script>
-        var data = 1482059332;
-
-        var d = new Date(+data * 1000);
-
-        var a = moment(d).locale("ru").format('LLL');
-
-        console.log(a);
-    </script>
-
-    
-    
     
     <script src="scripts\vue.min.js"></script>
     <script src="scripts\vue-resource.min.js"></script>

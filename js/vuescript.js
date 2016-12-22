@@ -17,6 +17,19 @@ new Vue({
     
     },
     methods: {
+        getDay : function(date, exactly){
+            function converDate(date){
+                var w = new Date(+date * 1000)
+                return w;
+            }
+            var d = converDate(date);
+            if(exactly){
+                return moment(d).locale("ru").format('LLL')
+            }else{
+                return moment(d).locale("ru").format('L')
+            }
+            
+        },
         // search all names
         getName: function(){
             var input = this.inputName;
@@ -51,12 +64,10 @@ new Vue({
                 this.info = dataObj[accountId];
                 this.showInfo = true
                 this.showUsers = false
+                
             })
-            last(this.info.last_battle_time)
         },
-        last: function(date){
-            return moment(date).locale("ru").format('LLL')
-        }
+        
     },
     
 
