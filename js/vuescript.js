@@ -6,13 +6,17 @@ new Vue({
         link: 'http://api.worldoftanks.ru/2.0/account/list/?application_id=fedcdf58732a2c186096d0aed13e0131&search=',
         login: 'https://api.worldoftanks.ru/wot/auth/login/?application_id=fedcdf58732a2c186096d0aed13e0131&redirect_uri=https%3A%2F%2Fdevelopers.wargaming.net%2Freference%2Fall%2Fwot%2Fauth%2Flogin%2F',
         statistic: 'https://api.worldoftanks.ru/wot/account/info/?application_id=fedcdf58732a2c186096d0aed13e0131&account_id=',
+        listTanks: 'https://api.worldoftanks.ru/wot/encyclopedia/tanks/?application_id=fedcdf58732a2c186096d0aed13e0131&language=ru',
         erroe: false,
         namesUser: [],
         info: [],
+        statisticArr: [],
         showInfo: false,
         isError: false,
         showUsers: false,
         inputName: '',
+        tankArr: [],
+       
         
     
     },
@@ -64,9 +68,17 @@ new Vue({
                 this.info = dataObj[accountId];
                 this.showInfo = true
                 this.showUsers = false
+                this.statisticArr = this.info.statistics;
                 
             })
         },
+        getListTanks: function(e){
+            this.$http.get(this.listTanks).then(function(respons){
+                var dataObj = respons.data.data
+                this.tankArr = dataObj;
+                console.log(this.tankArr);
+            })
+        }
         
     },
     

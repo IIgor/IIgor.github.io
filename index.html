@@ -4,14 +4,14 @@
     <title>Wot Statistick</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
-    <link rel="icon" type="image/png" href="//static-ptl-ru.gcdn.co/static/4.8.0/wotp_static/img/core/frontend/scss/common/img/favicon-16x16.png" sizes="16x16">
+    <!--<link rel="icon" type="image/png" href="//static-ptl-ru.gcdn.co/static/4.8.0/wotp_static/img/core/frontend/scss/common/img/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="//static-ptl-ru.gcdn.co/static/4.8.0/wotp_static/img/core/frontend/scss/common/img/favicon-32x32.png" sizes="32x32">
     <link rel="icon" type="image/png" href="//static-ptl-ru.gcdn.co/static/4.8.0/wotp_static/img/core/frontend/scss/common/img/favicon-96x96.png" sizes="96x96">
     <link rel="icon" type="image/png" href="//static-ptl-ru.gcdn.co/static/4.8.0/wotp_static/img/core/frontend/scss/common/img/favicon-192x192.png" sizes="192x192">
     <link rel="apple-touch-icon" sizes="60x60" href="//static-ptl-ru.gcdn.co/static/4.8.0/wotp_static/img/core/frontend/scss/common/img/apple-touch-icon-60x60.png">
     <link rel="apple-touch-icon" sizes="120x120" href="//static-ptl-ru.gcdn.co/static/4.8.0/wotp_static/img/core/frontend/scss/common/img/apple-touch-icon-120x120.png">
     <link rel="apple-touch-icon" sizes="180x180" href="//static-ptl-ru.gcdn.co/static/4.8.0/wotp_static/img/core/frontend/scss/common/img/apple-touch-icon-180x180.png">
-    <link rel="mask-icon" href="//static-ptl-ru.gcdn.co/static/4.8.0/wotp_static/img/core/frontend/scss/common/img/safari-pinned-16x16.svg" color="#474747">
+    <link rel="mask-icon" href="//static-ptl-ru.gcdn.co/static/4.8.0/wotp_static/img/core/frontend/scss/common/img/safari-pinned-16x16.svg" color="#474747">-->
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,400i,700&amp;subset=cyrillic" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
     <script src="scripts\jquery.min.js"></script>
@@ -33,6 +33,8 @@
     </svg>
 </svg>
     <div id="wrapper">
+        
+        <!--<a href="https://api.worldoftanks.ru/wot/auth/login/?application_id=fedcdf58732a2c186096d0aed13e0131&expires_at=600&redirect_uri=https%3A%2F%2Fwot.abcde.in.ua">Login</a>-->
         <header class="header">
             <a href="#" class="logo">
                 <img src="img/wot-logo.png" alt="">
@@ -58,15 +60,27 @@
 
        </header>
        
-        <div class="result" v-show="showInfo">
+        <div class="result" v-if="showInfo">
              <h1>{{ this.info.nickname }}</h1>
              
              <div>Дата регистрации: {{ getDay(this.info.created_at, false) }}</div>
              <div>Последний бой: {{ getDay(this.info.last_battle_time, true) }} </div>
+             <div>Всего боев: {{ statisticArr.all.battles }} </div>
+             <div>Победы: {{ statisticArr.all.wins }}, {{ ((statisticArr.all.wins * 100) / statisticArr.all.battles).toFixed(2) + "%" }}</div>
+             <div>Поражения: {{ statisticArr.all.losses }},  {{ ((statisticArr.all.losses * 100) / statisticArr.all.battles).toFixed(2) + "%" }}</div>
         </div>
-        <pre>
+
+
+        <div class="tanks">
+            <div class="item">
+                <img src="" alt="">
+                <p></p>
+            </div>
+        </div>
+        <!--<pre>
         {{ this.info }}
-        </pre>
+        </pre>-->
+        <a href="#" v-on:click.prevent="getListTanks">Танки</a>
         <div class="error"></div>
        
     </div>

@@ -1,5 +1,5 @@
 {
-  "name": "gulp",
+  "name": "wot",
   "version": "3.9.1",
   "main": "index.js",
   "devDependencies": {
