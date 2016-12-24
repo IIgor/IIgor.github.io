@@ -1,0 +1,45 @@
+.tanks{
+    display: flex;
+    flex-direction: column;
+}
+.tanks .items{
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+.items .item{
+    width: calc(100% / 6 - 20px);
+    border: 1px solid #fff;
+    margin: 10px 0;
+    position: relative;
+}
+.item .level{
+    position: absolute;
+    right: 5px;
+    top: 2px;
+    color: red;
+}
+.item img {
+    max-width: 100%;
+    min-width: 100%;
+}
+.item p{
+    font-size: 14px;
+    text-align: center;
+}
+.item.premium{
+   border: 1px solid gold;
+   color: gold;
+   background: rgba(255,215,0, .2);
+}
+
+@media screen and (max-width: 767px){
+    .items .item{
+        width: calc(100% / 2 - 20px);
+    }
+}
+@media screen and (max-width: 767px){
+    .items .item{
+        width: 100%;
+    }
+}
