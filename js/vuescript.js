@@ -27,22 +27,40 @@ new Vue({
         nationsSweden: [],
         nationsJapan: [],
         nationsChina: [],
-
+        testArr: [],
        
         
     
     },
     methods: {
+        sortTank: function(obj) {
+                var natArrLevel = []
+                
+                for(var i = 1; i <= 10; i++){
+                    for(item in obj){
+                        var b = obj[item].level
+                        if(b == i){
+                           natArrLevel.push(obj[item])
+                        }
+                    }
+                }
+                this.testArr.push(natArrLevel)
+            },
         sortTanks: function(){
             var a = this.tankArr
             //germany usa france uk czech sweden japan china
+            
             for(var key in a){
                 switch(a[key].nation) {
-                    case 'ussr':  
+                    case 'ussr':
+
                        this.nationsUSSR.push(a[key])
+                       
+                    //    console.log(this.testArr);
                        break;
                     case 'germany':
                         this.nationsGermany.push(a[key])
+                        
                         break;
                     case 'usa':
                         this.nationsUSA.push(a[key])
@@ -54,22 +72,39 @@ new Vue({
                         this.nationsUK.push(a[key])
                         break;
                     case 'czech':
-                        this.nationsSweden.push(a[key])
+                        this.nationsCzech.push(a[key])
+                        
                         break;
                     case 'sweden':
                         this.nationsSweden.push(a[key])
+                        
                         break;
                     case 'japan':
                         this.nationsJapan.push(a[key])
+                        
                         break;
                     case 'china':
                         this.nationsChina.push(a[key])
+                        
                         break;
                 }
-                console.log(a[key]);
+                // console.log(a[key]);
             }
-            console.log(this.nationsUSSR.nation_i18n);
+            // console.log(this.nationsUSSR);
             
+        this.sortTank(this.nationsUSSR)
+        this.sortTank(this.nationsGermany)
+        this.sortTank(this.nationsChina)
+        this.sortTank(this.nationsJapan)
+        this.sortTank(this.nationsSweden)
+        this.sortTank(this.nationsCzech)
+        this.sortTank(this.nationsUK)
+        this.sortTank(this.nationsFrance)
+        this.sortTank(this.nationsUSA)
+
+        console.log(this.testArr);
+        
+        
         
 
             
@@ -130,6 +165,8 @@ new Vue({
                 var dataObj = respons.data.data
                 this.tankArr = dataObj;
                 this.sortTanks();
+                // this.sortTank(this.nationsUSSR);
+                
                 // console.log(this.tankArr);
             })
         }

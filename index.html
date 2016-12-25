@@ -81,7 +81,8 @@
 
         <div class="tanks">
             <div class="items">
-                <div class="item" v-for="tank in nationsUSSR" :class="{ premium:  tank.is_premium }">
+                <div class="item" v-for="tank in testArr[0]" :class="{ premium:  tank.is_premium }">
+                    <section class="type">{{ tank.type_i18n }}</section>
                     <section class="level">{{ tank.level }}</section>
                     <img v-bind:src="tank.image" alt="">
                     <p>{{ tank.name_i18n }}</p>
@@ -89,7 +90,8 @@
             </div>
 
             <div class="items">
-                <div class="item" v-for="tank in nationsGermany" :class="{ premium:  tank.is_premium }">
+                <div class="item" v-for="tank in testArr[1]" :class="{ premium:  tank.is_premium }">
+                    <section class="type">{{ tank.type_i18n }}</section>
                     <section class="level">{{ tank.level }}</section>
                     <img v-bind:src="tank.image" alt="">
                     <p>{{ tank.name_i18n }}</p>
@@ -98,7 +100,8 @@
 
             <div class="items">
                 
-                <div class="item" v-for="tank in nationsUSA" :class="{ premium:  tank.is_premium }">
+                <div class="item" v-for="tank in testArr[2]" :class="{ premium:  tank.is_premium }">
+                    <section class="type">{{ tank.type_i18n }}</section>
                     <section class="level">{{ tank.level }}</section>
                     <img v-bind:src="tank.image" alt="">
                     <p>{{ tank.name_i18n }}</p>
@@ -106,7 +109,8 @@
             </div>
 
             <div class="items">
-                <div class="item" v-for="tank in nationsUK" :class="{ premium:  tank.is_premium }">
+                <div class="item" v-for="tank in testArr[3]" :class="{ premium:  tank.is_premium }">
+                    <section class="type">{{ tank.type_i18n }}</section>
                     <section class="level">{{ tank.level }}</section>
                     <img v-bind:src="tank.image" alt="">
                     <p>{{ tank.name_i18n }}</p>
@@ -114,14 +118,16 @@
             </div>
 
             <div class="items">
-                <div class="item" v-for="tank in nationsFrance" :class="{ premium:  tank.is_premium }">
+                <div class="item" v-for="tank in testArr[4]" :class="{ premium:  tank.is_premium }">
+                    <section class="type">{{ tank.type_i18n }}</section>
                     <img v-bind:src="tank.image" alt="">
                     <p>{{ tank.name_i18n }}</p>
                 </div>
             </div>
 
             <div class="items">
-                <div class="item" v-for="tank in nationsCzech" :class="{ premium:  tank.is_premium }">
+                <div class="item" v-for="tank in testArr[5]" :class="{ premium:  tank.is_premium }">
+                    <section class="type">{{ tank.type_i18n }}</section>
                     <section class="level">{{ tank.level }}</section>
                     <img v-bind:src="tank.image" alt="">
                     <p>{{ tank.name_i18n }}</p>
@@ -129,7 +135,8 @@
             </div>
 
             <div class="items">
-                <div class="item" v-for="tank in nationsSweden" :class="{ premium:  tank.is_premium }">
+                <div class="item" v-for="tank in testArr[6]" :class="{ premium:  tank.is_premium }">
+                    <section class="type">{{ tank.type_i18n }}</section>
                     <section class="level">{{ tank.level }}</section>
                     <img v-bind:src="tank.image" alt="">
                     <p>{{ tank.name_i18n }}</p>
@@ -137,7 +144,8 @@
             </div>
 
             <div class="items">
-                <div class="item" v-for="tank in nationsJapan" :class="{ premium:  tank.is_premium }">
+                <div class="item" v-for="tank in testArr[7]" :class="{ premium:  tank.is_premium }">
+                    <section class="type">{{ tank.type_i18n }}</section>
                     <section class="level">{{ tank.level }}</section>
                     <img v-bind:src="tank.image" alt="">
                     <p>{{ tank.name_i18n }}</p>
@@ -145,7 +153,8 @@
             </div>
 
             <div class="items">
-                <div class="item" v-for="tank in nationsChina" :class="{ premium:  tank.is_premium }">
+                <div class="item" v-for="tank in testArr[8]" :class="{ premium:  tank.is_premium }">
+                    <section class="type">{{ tank.type_i18n }}</section>
                     <section class="level">{{ tank.level }}</section>
                     <img v-bind:src="tank.image" alt="">
                     <p>{{ tank.name_i18n }}</p>
