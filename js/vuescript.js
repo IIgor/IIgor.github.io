@@ -7,6 +7,8 @@ new Vue({
         login: 'https://api.worldoftanks.ru/wot/auth/login/?application_id=fedcdf58732a2c186096d0aed13e0131&redirect_uri=https%3A%2F%2Fdevelopers.wargaming.net%2Freference%2Fall%2Fwot%2Fauth%2Flogin%2F',
         statistic: 'https://api.worldoftanks.ru/wot/account/info/?application_id=fedcdf58732a2c186096d0aed13e0131&account_id=',
         listTanks: 'https://api.worldoftanks.ru/wot/encyclopedia/tanks/?application_id=fedcdf58732a2c186096d0aed13e0131&language=ru',
+        TanksUser: 'https://api.worldoftanks.ru/wot/account/tanks/?application_id=fedcdf58732a2c186096d0aed13e0131&account_id=',
+        
         erroe: false,
         namesUser: [],
         info: [],
@@ -14,9 +16,13 @@ new Vue({
         showInfo: false,
         isError: false,
         showUsers: false,
+        showAllTanksList: false,
+        showUserTanks: false,
         inputName: '',
         tankArr: [],
         nations: [],
+        listTanksUser: [],
+        listSortUserTanks: [],
 
         nationsUSSR: [],
         nationsGermany: [],
@@ -33,6 +39,9 @@ new Vue({
     
     },
     methods: {
+        showAllTanks: function(){
+            this.showAllTanksList = !this.showAllTanksList
+        },
         sortTank: function(obj) {
                 var natArrLevel = []
                 
@@ -53,14 +62,10 @@ new Vue({
             for(var key in a){
                 switch(a[key].nation) {
                     case 'ussr':
-
                        this.nationsUSSR.push(a[key])
-                       
-                    //    console.log(this.testArr);
                        break;
                     case 'germany':
                         this.nationsGermany.push(a[key])
-                        
                         break;
                     case 'usa':
                         this.nationsUSA.push(a[key])
@@ -73,19 +78,15 @@ new Vue({
                         break;
                     case 'czech':
                         this.nationsCzech.push(a[key])
-                        
                         break;
                     case 'sweden':
                         this.nationsSweden.push(a[key])
-                        
                         break;
                     case 'japan':
                         this.nationsJapan.push(a[key])
-                        
                         break;
                     case 'china':
                         this.nationsChina.push(a[key])
-                        
                         break;
                 }
                 // console.log(a[key]);
@@ -102,12 +103,8 @@ new Vue({
         this.sortTank(this.nationsFrance)
         this.sortTank(this.nationsUSA)
 
-        console.log(this.testArr);
-        
-        
-        
-
-            
+        // console.log(this.testArr);
+      
         },
         getDay : function(date, exactly){
             function converDate(date){
@@ -160,18 +157,71 @@ new Vue({
                 
             })
         },
+        sortUserTanks: function(){
+            var list = this.listTanksUser
+            var list1 = []
+            
+            
+            
+            for(var a = 0; a <= list.length - 1; a++){
+                var id = list[a].tank_id
+                var statistics = list[a].statistics
+                var mastery = list[a].mark_of_mastery
+                var tankId = this.tankArr[id]
+                var statttt = tankId.statistics = statistics
+                var musttt = tankId.mark_of_mastery = mastery
+                list1.push(tankId);
+            }
+
+            this.listSortUserTanks.push(list1);
+            this.showUserTanks = !this.showUserTanks
+            
+           
+        },
         getListTanks: function(e){
             this.$http.get(this.listTanks).then(function(respons){
                 var dataObj = respons.data.data
                 this.tankArr = dataObj;
                 this.sortTanks();
-                // this.sortTank(this.nationsUSSR);
-                
+
                 // console.log(this.tankArr);
             })
-        }
+        },
+        getTechniksUser: function(e){
+            var userId = e.target.getAttribute('href');
+            this.$http.get(this.TanksUser + userId).then(function(respons){
+                    var dataObj = respons.data.data
+                    this.listTanksUser = dataObj[userId]
+                    
+                    this.sortUserTanks();
+                    
+                           
+                })
+        },
+        master: function(key){
+
+
+             if(key == 4){
+                return 'img/class-ace.png';
+             }else if(key == 1){
+                return 'img/class-1.png';   
+             }else if(key == 2){
+                return 'img/class-2.png';   
+             }else if(key == 3){
+                return 'img/class-3.png';   
+             }
+
+
+        },
         
     },
+
+    created: function(){
+        this.getListTanks();
+    },
+
+
+   
     
 
 })

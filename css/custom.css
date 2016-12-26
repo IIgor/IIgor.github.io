@@ -40,6 +40,59 @@
 .header .list{
     z-index: 9999;
 }
+
+.list-technicks{
+    margin: 20px 0 0 0;
+}
+.list-technicks .list-technicks_items{
+    display: flex;
+    padding: 5px 0;
+    align-items: center;
+    
+}
+.list-technicks_items .type{
+    width: 20px;
+    background: url('/img/level-ico.png');
+}
+.list-technicks_items .type_spg{
+    background-position: 0 -59px;
+
+}
+.list-technicks_items .type_lighttank{
+    background-position: 0 -118px;
+}
+.list-technicks_items .type_mediumtank{
+    background-position: 0 -178px;
+}
+.list-technicks_items .type_heavytank{
+    background-position: 0 0;
+}
+.list-technicks_items .type_at-spg{
+        background-position: 0 -237px;
+}
+
+.list-technicks_items .level{
+    width: 4%;
+    text-align: center; 
+}
+.list-technicks_items img{
+    display: inline-block;
+    vertical-align: middle;
+} 
+.list-technicks_items .name{
+    display: inline-block;
+    vertical-align: middle;
+}
+.list-technicks_items .img-name{
+    width: 80%;
+}
+.list-technicks_items .battles{
+    width: 10%;
+}
+.list-technicks_items .mastery{
+    width: 6%;
+}
+
 @media screen and (max-width: 767px){
     .items .item{
         width: calc(100% / 2 - 20px);

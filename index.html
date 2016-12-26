@@ -70,16 +70,28 @@
              <div>Всего боев: {{ statisticArr.all.battles }} </div>
              <div>Победы: {{ statisticArr.all.wins }}, {{ ((statisticArr.all.wins * 100) / statisticArr.all.battles).toFixed(2) + "%" }}</div>
              <div>Поражения: {{ statisticArr.all.losses }},  {{ ((statisticArr.all.losses * 100) / statisticArr.all.battles).toFixed(2) + "%" }}</div>
+             <a v-bind:href="this.info.account_id" v-on:click.prevent="getTechniksUser">Техника {{ this.info.nickname }}</a>
+
+             <div class="list-technicks" v-if="this.showUserTanks">
+                 <div class="list-technicks_items" v-for="lists in listSortUserTanks[0]">
+                     
+                     <div class="level">{{ lists.level }}</div>
+                     <div class="img-name">
+                         <img v-bind:src="lists.image_small" alt="">
+                         <span class="name">{{ lists.name_i18n }}</span>
+                     </div>
+                     <div class="battles">{{ lists.statistics.battles }}</div>
+                     <div class="mastery"> <img v-bind:src="master(lists.mark_of_mastery)" alt=""> </div>
+                 </div>
+             </div>
         </div>
 
 
         
-        <!--<pre>
-        {{ this.info }}
-        </pre>-->
-        <a href="#" v-on:click.prevent="getListTanks">Танки</a>
+       
+        <a href="#" v-on:click.prevent="showAllTanks">Танки</a>
 
-        <div class="tanks">
+        <div class="tanks" v-if="showAllTanksList">
             <div class="items">
                 <div class="item" v-for="tank in testArr[0]" :class="{ premium:  tank.is_premium }">
                     <section class="type">{{ tank.type_i18n }}</section>
@@ -162,7 +174,12 @@
             </div>
         </div>
 
-        <div class="error"></div>
+        <!--<pre>
+            {{ this.listSortUserTanks }}
+        </pre>
+        <pre>
+            {{ this.tankArr }}
+        </pre>-->
        
     </div>
     
