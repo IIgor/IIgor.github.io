@@ -1,3 +1,7 @@
+[v-cloak] {
+  display: none;
+}
+
 .tanks{
     display: flex;
     flex-direction: column;
@@ -32,8 +36,8 @@
     font-size: 14px;
     text-align: center;
 }
-.item.premium{
-   border: 1px solid gold;
+.premium{
+   /*border: 1px solid gold;*/
    color: gold;
    background: rgba(255,215,0, .2);
 }
@@ -43,54 +47,106 @@
 
 .list-technicks{
     margin: 20px 0 0 0;
+    display: flex;
+    flex-direction: column;
 }
-.list-technicks .list-technicks_items{
+.list-technicks .all-info{
+    width: 100%;
+    height: 0;
+    /*background: #f00;*/
+    transition: all cubic-bezier(.56, .02, .91, .53) .5s;
+    overflow: hidden;
+    border-left: 1px solid #444; 
+    border-right: 1px solid #444; 
+    border-bottom: 1px solid #444;
+    display: flex;
+    
+}
+.list-technicks .all-info.active{
+    height: 400px;
+    transition: all cubic-bezier(.56, .02, .91, .53) .5s; 
+}
+.list-technicks .all-info .img{
+    width: 30%;
+}
+.list-technicks .all-info .img img{
+    max-width: 100%;
+}
+.list-technicks .list{
     display: flex;
     padding: 5px 0;
     align-items: center;
-    
+    border-bottom: 1px solid #444;
+    transition: opacity linear .2s;
+    cursor: pointer;
 }
-.list-technicks_items .type{
+.list-technicks .list > div{
+    pointer-events: none;
+}
+
+.list-technicks .list:hover{
+    background: rgba(255, 255, 255, .1);
+    transition: background linear .2s;
+}
+.list .type{
     width: 20px;
-    background: url('/img/level-ico.png');
-}
-.list-technicks_items .type_spg{
-    background-position: 0 -59px;
-
-}
-.list-technicks_items .type_lighttank{
-    background-position: 0 -118px;
-}
-.list-technicks_items .type_mediumtank{
-    background-position: 0 -178px;
-}
-.list-technicks_items .type_heavytank{
-    background-position: 0 0;
-}
-.list-technicks_items .type_at-spg{
-        background-position: 0 -237px;
+    height: 20px;
+    background: url('../img/level-ico.png');
 }
 
-.list-technicks_items .level{
+.list .type[data-class="spg"]{
+    background-position: -7px -68px;
+
+}
+.list .type[data-class="lighttank"]{
+    background-position: -7px -128px;
+}
+.list .type[data-class="mediumtank"]{
+    background-position: -7px -187px;
+}
+.list .type[data-class="heavytank"]{
+    background-position: -7px -9px;
+}
+.list .type[data-class="at-spg"]{
+    background-position: -7px -245px;
+}
+
+.list .level{
     width: 4%;
     text-align: center; 
 }
-.list-technicks_items img{
+.list img{
     display: inline-block;
     vertical-align: middle;
 } 
-.list-technicks_items .name{
+.list .name{
     display: inline-block;
     vertical-align: middle;
 }
-.list-technicks_items .img-name{
+.list .img-name{
     width: 80%;
 }
-.list-technicks_items .battles{
+.list .battles{
     width: 10%;
 }
-.list-technicks_items .mastery{
+.list .mastery{
     width: 6%;
+}
+.loading{
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    z-index: 9999;
+}
+.loading .log{
+    width: 50px;
+    height: 50px;
+    background: url(../img/death-wheel.gif);
+    z-index: 10000;
+    margin: auto;
 }
 
 @media screen and (max-width: 767px){
