@@ -1,4 +1,5 @@
-new Vue({
+
+var vm = new Vue({
     el: '#wrapper',
     data: {
         myidWg: 'fedcdf58732a2c186096d0aed13e0131',
@@ -22,7 +23,9 @@ new Vue({
         showAllTanksList: false,
         showUserTanks: false,
         loadingPage: true,
-        showAllInfoBlc: false,
+        loadLogo: true,
+        loadTankInfo: false,
+        
         inputName: '',
         tankArr: [],
         nations: [],
@@ -30,6 +33,7 @@ new Vue({
         listSortUserTanks: [],
         thisClickUserId: '',
         arrTankUser: [],
+        clickTankGetId: '',
 
         nationsUSSR: [],
         nationsGermany: [],
@@ -42,27 +46,69 @@ new Vue({
         nationsChina: [],
         testArr: [],
 
-        
-       
-        
+
+        lastUserObj: [],
+  
     
-    },
+    }, 
+    // components: {
+    //     popup: {
+    //         props: ['message'],
+    //         template: "<h1>{{ this.idTanks }}</h1>",
+    //         data: function(){
+    //             return {
+    //                 idTanks: ''
+    //             }
+    //         },
+    //         methods: {
+    //             idTanks: function(){
+    //                 var a = this.$get('idTanks', this.$parent.myidWg);
+
+    //                 console.log(a)
+    //             }
+    //         }
+    //     }
+    // },
     methods: {
+        closePoppup: function(){
+            this.loadingPage = !this.loadingPage
+            this.loadTankInfo = !this.loadTankInfo
+            this.arrTankUser = []
+        },
         showMethodFullInfo: function(e, tankId){
+            this.arrTankUser = []
             
             var newBlc = e.target.nextElementSibling;
             var tnkId = e.target.getAttribute('data-tankId')
-            newBlc.classList.toggle('active')
+            this.clickTankGetId = tnkId
 
-            console.log(tnkId);
+
+            // console.log('id' + this.clickTankGetId)
+            
+            this.loadingPage = !this.loadingPage
+            this.loadTankInfo = !this.loadTankInfo
 
             this.$http.get(this.infoTankStatUser + this.thisClickUserId + '&tank_id=' + tnkId).then(function(respons){
                 var data = respons.data.data
                 var id = data[this.thisClickUserId][0]
+                // var ar = id[0]
                 
                 this.arrTankUser.push(id)
-                console.log( this.arrTankUser[0].all);
+                // console.log( this.arrTankUser[0].all);
             })
+
+            // if(this.showAllInfoBlc == 0){
+            //     newBlc.classList.add('active')
+            //     this.showAllInfoBlc = 1
+            //     var ar = this.arrTankUser
+            //     console.log(ar)
+            //     // if(this.arrTankUser.length == 0){
+            //     //     this.loadingPage = true
+            //     // }
+            // }else{
+            //     newBlc.classList.remove('active')
+            //     this.showAllInfoBlc = 0 
+            // }
 
             
                 
@@ -181,17 +227,33 @@ new Vue({
         getFullInfo: function(e){
             var accountId = e.target.getAttribute('href');
             this.inputName = e.target.innerHTML;
+
+           
             
             this.$http.get(this.statistic + accountId).then(function(respons){
                 var dataObj = respons.data.data
-                this.info = dataObj[accountId];
+                this.info = dataObj[accountId]
                 this.showInfo = true
                 this.showUsers = false
                 this.statisticArr = this.info.statistics;
                 this.showUserTanks = false
                 this.listSortUserTanks = []
-                
+                console.log(this.info.nickname);
             })
+
+            //  console.log(this.info);
+
+            var lastUser = {
+                name: this.info.nickname,
+                id: accountId
+            };
+            
+            var serialObj = JSON.stringify(lastUser); //сериализуем его
+            
+            localStorage.setItem("last", serialObj); //запишем его в хранилище по ключу "myKey"
+            
+            
+
         },
         sortUserTanks: function(){
             var list = this.listTanksUser
@@ -245,22 +307,99 @@ new Vue({
                 return 'img/class-3.png';   
              }
         },
+        getLastFindUser: function(){
+            var returnObj = JSON.parse(localStorage.getItem("last"))
+            this.lastUserObj = returnObj
+            console.log(this.lastUserObj);
+        },
         
     },
-
+    
     created: function(){
         this.getListTanks();
+        this.getLastFindUser();
     },
     watch: {
         tankArr: function(){
+            this.loadLogo = !this.loadLogo
             this.loadingPage = !this.loadingPage
         }
-        
     },
-    
-
 
    
-    
-
 })
+
+Vue.component('pop', {
+  // определяем входной параметр
+  props: ['message'],
+  // как и другие данные, входной параметр можно использовать
+  // внутри шаблонов (а также и в методах, обращаясь через this.message)
+  template: '\
+        <div>\
+            <div class="img_tank"><img v-bind:src="objTank[0].tankInfo.images.big_icon" /></div>\
+            <div>Максимум уничтожено за бой: {{ test.max_frags }}</div>\
+            <div>Всего боев: {{ infoAll.battles }}</div>\
+            <div>Победы: {{ infoAll.wins }} ({{   ((infoAll.wins * 100) / infoAll.battles).toFixed(2) + "%"  }})</div>\
+            <div>Поражения: {{ infoAll.losses }}</div>\
+            <div>Уничтожено техники: {{ infoAll.frags }}</div>\
+            <div>Средний опыт за бой: {{ infoAll.battle_avg_xp }}</div>\
+            <div>Нанесено повреждений: {{ infoAll.damage_dealt }}</div>\
+            <div>Средний дамаг: {{ (infoAll.damage_dealt / infoAll.frags).toFixed()  }}</div>\
+           \
+        </div>\
+  ',
+  data: function(){
+    return {
+        id: vm.clickTankGetId,
+        arrUsertanks: vm.listSortUserTanks,
+        objTank: [],
+        arrTank: vm.arrTankUser,
+        loadingPage: vm.loadingPage,
+        loadLogo: vm.loadLogo,
+        test: [],
+        infoAll: [],
+        
+    }  
+  },
+  methods: {
+      getMastery: function(){
+          var len = this.arrUsertanks[0]
+          var id = this.id
+          var obj = []
+
+            len.forEach(function(el, index, arr){
+                if(el.tank_id == id){
+                     obj.push(arr[index]) 
+                }
+            })
+            this.objTank = obj
+      },
+      getInfoWithArrTank: function(vals){
+          
+          if(this.arrTank.length == 0){
+              this.loadingPage = true
+                this.loadLogo = true
+          }else{
+              var arrr = this.arrTank[0]
+
+                this.test = arrr
+                this.infoAll = arrr.all
+          }
+
+    }
+
+  },
+  created: function(){
+        this.getMastery();
+    },
+    watch: {
+        arrTank: function(){
+            if(this.arrTank.length == 0){
+                console.log('NAN');
+            }else{
+                this.getInfoWithArrTank();
+            }
+        }
+    }
+})
+
