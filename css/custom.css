@@ -4,6 +4,9 @@
 body{
     background: #000;
 }
+a{
+    color: gold;
+}
 .tanks{
     display: flex;
     flex-direction: column;
@@ -136,18 +139,19 @@ body{
 }
 .info-tank{
     width: 400px;
-    height: 300px;
-    border: 1px solid #f00;
+    /*height: 300px;*/
+    border: 1px solid #444;
     margin: auto;
     position: relative;
+    padding: 10px;
     /*overflow-y: scroll;*/
 }
 .info-tank .close{
     position: absolute;
     width: 20px;
     height: 20px;
-    top: -10px;
-    right: -10px;
+    top: -20px;
+    right: -15px;
     cursor: pointer;
 }
 .info-tank .close::before{
@@ -168,6 +172,23 @@ body{
     background: #f00;
     transform: translate(0px, -4px) rotate(-45deg);
 }
+.info-tank .items{
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0px;
+    border-bottom: 2px dotted #444;
+}
+.info-tank .items:last-child{
+    border-bottom: none;
+}
+
+.info-tank .img_tank{
+    margin-bottom: 20px;
+}
+.info-tank .img_tank img{
+    margin: 0 auto;
+    display: block;
+}
 .loading{
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
@@ -183,6 +204,29 @@ body{
     background: url(../img/death-wheel.gif);
     z-index: 10000;
     margin: auto;
+}
+
+.last{
+    margin-top: 5px;
+    
+
+}
+.last:before{
+    display: inline-block;
+    content: 'Последнией кого смотрели:';
+}
+
+.result .items{
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 0px;
+    border-bottom: 2px dotted #444;
+
+}
+.result h1{
+    font-size: 28px;
+    text-align: center;
+    margin: 10px 0 5px 0; 
 }
 
 @media screen and (max-width: 767px){

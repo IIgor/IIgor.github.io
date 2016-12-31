@@ -38,7 +38,7 @@
         
         <!--<a href="https://api.worldoftanks.ru/wot/auth/login/?application_id=fedcdf58732a2c186096d0aed13e0131&expires_at=600&redirect_uri=https%3A%2F%2Fwot.abcde.in.ua">Login</a>-->
         <header class="header">
-            <a v-bind:href="lastUserObj.id" class="last" v-on:click.prevent="getFullInfo">{{ lastUserObj.name }}</a>
+            <a v-bind:href="lastUserObj.id" v-if="noneUser" class="last" v-on:click.prevent="getFullInfo">{{ lastUserObj.name }}</a>
             <a href="#" class="logo">
                 <img src="img/wot-logo.png" alt="">
             </a>
@@ -66,12 +66,27 @@
         <div class="result" v-if="showInfo" v-cloak> 
              <h1>{{ this.info.nickname }}</h1>
              
-             <div>Дата регистрации: {{ getDay(this.info.created_at, false) }}</div>
-             <div>Последний бой: {{ getDay(this.info.last_battle_time, true) }} </div>
-             <div>Всего боев: {{ statisticArr.all.battles }} </div>
-             <div>Победы: {{ statisticArr.all.wins }}, {{ ((statisticArr.all.wins * 100) / statisticArr.all.battles).toFixed(2) + "%" }}</div>
-             <div>Поражения: {{ statisticArr.all.losses }},  {{ ((statisticArr.all.losses * 100) / statisticArr.all.battles).toFixed(2) + "%" }}</div>
-             <a v-bind:href="this.info.account_id" v-on:click.prevent="getTechniksUser">Техника {{ this.info.nickname }}</a>
+             <div class="items">Дата регистрации: <span>{{ getDay(this.info.created_at, false) }}</span></div>
+             <div class="items">Глобальный рейтинг: <span>{{ info.global_rating }}</span></div>
+             
+             <div class="items">Последний бой: <span>{{ getDay(this.info.last_battle_time, true) }} </span></div>
+             <div class="items">Всего боев: <span>{{ statisticArr.all.battles }}</span> </div>
+             <div class="items">Победы: <span>{{ statisticArr.all.wins }} ( {{ ((statisticArr.all.wins * 100) / statisticArr.all.battles).toFixed(2) + "%" }} )</span></div>
+             <div class="items">Поражения: <span>{{ statisticArr.all.losses }}  ( {{ ((statisticArr.all.losses * 100) / statisticArr.all.battles).toFixed(2) + "%" }} )</span></div>
+             <div class="items">Ничьи: <span>{{ statisticArr.all.draws }}  ( {{ ((statisticArr.all.draws * 100) / statisticArr.all.battles).toFixed(2) + "%" }} )</span></div>
+             <div class="items">Выжил в боях: <span>{{ statisticArr.all.survived_battles }}  ( {{ ((statisticArr.all.survived_battles * 100) / statisticArr.all.battles).toFixed(2) + "%" }} )</span></div>
+             
+             
+             <div class="items">Уничтожено техники: <span>{{ statisticArr.all.frags }}  ( {{ (statisticArr.all.frags / statisticArr.all.battles).toFixed(2) }} )</span></div>
+             <div class="items">Максимум уничтожено за бой: <span>{{ statisticArr.all.max_frags}}</span></div>
+             <div class="items">Максимальный опыт за бой: <span>{{ statisticArr.all.max_xp}}</span></div>
+             <div class="items">Суммарный опыт: <span>{{ statisticArr.all.xp}}</span></div>
+             
+            
+             
+             
+             <!--<a v-bind:href="this.info.account_id" v-on:click.prevent="getTechniksUser">Техника {{ this.info.nickname }}</a>-->
+             
 
              <div class="list-technicks" v-if="this.showUserTanks">
                  

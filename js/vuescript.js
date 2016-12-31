@@ -11,9 +11,11 @@ var vm = new Vue({
         TanksUser: 'https://api.worldoftanks.ru/wot/account/tanks/?application_id=fedcdf58732a2c186096d0aed13e0131&account_id=',
         newLinktank : 'https://api.worldoftanks.ru/wot/encyclopedia/vehicles/?application_id=fedcdf58732a2c186096d0aed13e0131',
         infoTankStatUser: 'https://api.worldoftanks.ru/wot/tanks/stats/?application_id=fedcdf58732a2c186096d0aed13e0131&account_id=',
-
+        achievements: 'https://api.worldoftanks.ru/wot/account/achievements/?application_id=demo&account_id=',
         
         erroe: false,
+        noneUser: false,
+        nicknameUser: '',
         namesUser: [],
         info: [],
         statisticArr: [],
@@ -35,40 +37,21 @@ var vm = new Vue({
         arrTankUser: [],
         clickTankGetId: '',
 
-        nationsUSSR: [],
-        nationsGermany: [],
-        nationsUSA: [],
-        nationsUK: [],
-        nationsFrance: [],
-        nationsCzech: [],
-        nationsSweden: [],
-        nationsJapan: [],
-        nationsChina: [],
-        testArr: [],
-
+        // nationsUSSR: [],
+        // nationsGermany: [],
+        // nationsUSA: [],
+        // nationsUK: [],
+        // nationsFrance: [],
+        // nationsCzech: [],
+        // nationsSweden: [],
+        // nationsJapan: [],
+        // nationsChina: [],
+        achievementsArrInfo: [],
 
         lastUserObj: [],
   
     
     }, 
-    // components: {
-    //     popup: {
-    //         props: ['message'],
-    //         template: "<h1>{{ this.idTanks }}</h1>",
-    //         data: function(){
-    //             return {
-    //                 idTanks: ''
-    //             }
-    //         },
-    //         methods: {
-    //             idTanks: function(){
-    //                 var a = this.$get('idTanks', this.$parent.myidWg);
-
-    //                 console.log(a)
-    //             }
-    //         }
-    //     }
-    // },
     methods: {
         closePoppup: function(){
             this.loadingPage = !this.loadingPage
@@ -82,110 +65,21 @@ var vm = new Vue({
             var tnkId = e.target.getAttribute('data-tankId')
             this.clickTankGetId = tnkId
 
+            console.log(tnkId);
 
-            // console.log('id' + this.clickTankGetId)
             
             this.loadingPage = !this.loadingPage
             this.loadTankInfo = !this.loadTankInfo
 
-            this.$http.get(this.infoTankStatUser + this.thisClickUserId + '&tank_id=' + tnkId).then(function(respons){
+            this.$http.get(this.infoTankStatUser + this.info.account_id + '&tank_id=' + tnkId).then(function(respons){
                 var data = respons.data.data
-                var id = data[this.thisClickUserId][0]
-                // var ar = id[0]
+                var id = data[this.info.account_id][0]
                 
                 this.arrTankUser.push(id)
-                // console.log( this.arrTankUser[0].all);
-            })
 
-            // if(this.showAllInfoBlc == 0){
-            //     newBlc.classList.add('active')
-            //     this.showAllInfoBlc = 1
-            //     var ar = this.arrTankUser
-            //     console.log(ar)
-            //     // if(this.arrTankUser.length == 0){
-            //     //     this.loadingPage = true
-            //     // }
-            // }else{
-            //     newBlc.classList.remove('active')
-            //     this.showAllInfoBlc = 0 
-            // }
-
-            
-                
-            
-
-            // this.showAllInfoBlc = !this.showAllInfoBlc
-           
-            // console.log(click);
-            
+            })    
         },
-        // showAllTanks: function(){
-        //     this.showAllTanksList = !this.showAllTanksList
-        // },
-        // sortTank: function(obj) {
-        //         var natArrLevel = []
-                
-        //         for(var i = 1; i <= 10; i++){
-        //             for(item in obj){
-        //                 var b = obj[item].level
-        //                 if(b == i){
-        //                    natArrLevel.push(obj[item])
-        //                 }
-        //             }
-        //         }
-        //         this.testArr.push(natArrLevel)
-        //     },
-        // sortTanks: function(){
-        //     var a = this.tankArr
-        //     //germany usa france uk czech sweden japan china
-            
-        //     for(var key in a){
-        //         switch(a[key].nation) {
-        //             case 'ussr':
-        //                this.nationsUSSR.push(a[key])
-        //                break;
-        //             case 'germany':
-        //                 this.nationsGermany.push(a[key])
-        //                 break;
-        //             case 'usa':
-        //                 this.nationsUSA.push(a[key])
-        //                 break;
-        //             case 'france':
-        //                 this.nationsFrance.push(a[key])
-        //                 break;
-        //             case 'uk':
-        //                 this.nationsUK.push(a[key])
-        //                 break;
-        //             case 'czech':
-        //                 this.nationsCzech.push(a[key])
-        //                 break;
-        //             case 'sweden':
-        //                 this.nationsSweden.push(a[key])
-        //                 break;
-        //             case 'japan':
-        //                 this.nationsJapan.push(a[key])
-        //                 break;
-        //             case 'china':
-        //                 this.nationsChina.push(a[key])
-        //                 break;
-        //         }
-        //         // console.log(a[key]);
-        //     }
-        //     // console.log(this.nationsUSSR);
-            
-        // this.sortTank(this.nationsUSSR)
-        // this.sortTank(this.nationsGermany)
-        // this.sortTank(this.nationsChina)
-        // this.sortTank(this.nationsJapan)
-        // this.sortTank(this.nationsSweden)
-        // this.sortTank(this.nationsCzech)
-        // this.sortTank(this.nationsUK)
-        // this.sortTank(this.nationsFrance)
-        // this.sortTank(this.nationsUSA)
-
-        // // console.log(this.testArr);
-      
-        // },
+       
         getDay : function(date, exactly){
             function converDate(date){
                 var w = new Date(+date * 1000)
@@ -222,7 +116,28 @@ var vm = new Vue({
                 }
                 
             })
-        }, 
+        },
+         achievementsMethod: function(){
+            this.$http.get(this.achievements + this.info.account_id).then(function(respons){
+                var dataObj = respons.data.data
+                var achievementsInfo = dataObj[this.info.account_id]
+                this.achievementsArrInfo = achievementsInfo
+                // this.tankArr = dataObj;
+                console.log(this.achievementsArrInfo);
+
+            })
+        },
+        getTechniksUser: function(user){
+            var userId = user
+            this.$http.get(this.TanksUser + userId).then(function(respons){
+                    var dataObj = respons.data.data
+                    this.listTanksUser = dataObj[userId]
+                    
+                    // sort tanks on user
+                    this.sortUserTanks();
+                             
+                })
+        },
         // search all info about users
         getFullInfo: function(e){
             var accountId = e.target.getAttribute('href');
@@ -233,22 +148,28 @@ var vm = new Vue({
             this.$http.get(this.statistic + accountId).then(function(respons){
                 var dataObj = respons.data.data
                 this.info = dataObj[accountId]
+                console.log(this.info)
                 this.showInfo = true
                 this.showUsers = false
                 this.statisticArr = this.info.statistics;
                 this.showUserTanks = false
                 this.listSortUserTanks = []
-                console.log(this.info.nickname);
-            })
 
-            //  console.log(this.info);
+                // this.nicknameUser.push(dataObj[accountId].nicknameUser)
+                // console.log(typeof this.nicknameUser)
+                this.getTechniksUser(this.info.account_id)
+                this.achievementsMethod()
+            })
+            // console.log(this.statisticArr)
+            
 
             var lastUser = {
-                name: this.info.nickname,
+                name: this.inputName,
                 id: accountId
             };
             
             var serialObj = JSON.stringify(lastUser); //сериализуем его
+
             
             localStorage.setItem("last", serialObj); //запишем его в хранилище по ключу "myKey"
             
@@ -284,18 +205,7 @@ var vm = new Vue({
 
             })
         },
-        getTechniksUser: function(e){
-            var userId = e.target.getAttribute('href');
-            this.thisClickUserId = userId
-            this.$http.get(this.TanksUser + userId).then(function(respons){
-                    var dataObj = respons.data.data
-                    this.listTanksUser = dataObj[userId]
-                    
-                    // sort tanks on user
-                    this.sortUserTanks();
-                             
-                })
-        },
+        
         master: function(key){
              if(key == 4){
                 return 'img/class-ace.png';
@@ -309,9 +219,16 @@ var vm = new Vue({
         },
         getLastFindUser: function(){
             var returnObj = JSON.parse(localStorage.getItem("last"))
+            if(returnObj == null){
+                return false;
+            }else{
+                this.noneUser = true
+            }
+
             this.lastUserObj = returnObj
             console.log(this.lastUserObj);
         },
+       
         
     },
     
@@ -337,14 +254,15 @@ Vue.component('pop', {
   template: '\
         <div>\
             <div class="img_tank"><img v-bind:src="objTank[0].tankInfo.images.big_icon" /></div>\
-            <div>Максимум уничтожено за бой: {{ test.max_frags }}</div>\
-            <div>Всего боев: {{ infoAll.battles }}</div>\
-            <div>Победы: {{ infoAll.wins }} ({{   ((infoAll.wins * 100) / infoAll.battles).toFixed(2) + "%"  }})</div>\
-            <div>Поражения: {{ infoAll.losses }}</div>\
-            <div>Уничтожено техники: {{ infoAll.frags }}</div>\
-            <div>Средний опыт за бой: {{ infoAll.battle_avg_xp }}</div>\
-            <div>Нанесено повреждений: {{ infoAll.damage_dealt }}</div>\
-            <div>Средний дамаг: {{ (infoAll.damage_dealt / infoAll.frags).toFixed()  }}</div>\
+            <div class="items">Максимум уничтожено за бой:  <span>{{ test.max_frags }}</span></div>\
+            <div class="items">Всего боев: <span>{{ infoAll.battles }}</span></div>\
+            <div class="items">Уничтожено техники: <span>{{ infoAll.frags }} ({{ (infoAll.frags / infoAll.battles).toFixed(2) }} )</span></div>\
+            <div class="items">Победы: <span>{{ infoAll.wins }} ({{   ((infoAll.wins * 100) / infoAll.battles).toFixed(2) + "%"  }})</span></div>\
+            <div class="items">Поражения: <span>{{ infoAll.losses }} ({{   ((infoAll.losses * 100) / infoAll.battles).toFixed(2) + "%"  }})</span></div>\
+            \
+            <div class="items">Средний опыт за бой: <span>{{ infoAll.battle_avg_xp }}</span></div>\
+            <div class="items">Нанесено повреждений: <span>{{ infoAll.damage_dealt }}</span></div>\
+            <div class="items">Средний дамаг: <span>{{ (infoAll.damage_dealt / infoAll.frags).toFixed()  }}</span></div>\
            \
         </div>\
   ',
@@ -379,6 +297,7 @@ Vue.component('pop', {
           if(this.arrTank.length == 0){
               this.loadingPage = true
                 this.loadLogo = true
+                console.log('no info');
           }else{
               var arrr = this.arrTank[0]
 
@@ -386,7 +305,8 @@ Vue.component('pop', {
                 this.infoAll = arrr.all
           }
 
-    }
+    },
+    
 
   },
   created: function(){
