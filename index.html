@@ -90,10 +90,14 @@
 
              <div class="list-technicks" v-if="this.showUserTanks">
                  
-                 
+                 <!---->
+                 <!--<pre>      {{ listTanksUser }}</pre>-->
+                 <!---->
                  <div class="list-technicks_items" v-for="(lists, index) in listSortUserTanks[0]" :class="{ premium:  lists.tankInfo.is_premium }">
+                     <!--<div>{{ index }}</div>
+                     <pre>{{ lists }}</pre>-->
                     <div class="list" v-on:click="showMethodFullInfo" v-bind:data-tankId="lists.tankInfo.tank_id">
-                        <!--<pre>{{  }}</pre>-->
+                        
                         <div class="type" v-bind:data-class="lists.tankInfo.type.toLowerCase()"></div>
                         <div class="level">{{ lists.tankInfo.tier }}</div>
                         <div class="img-name">
@@ -103,16 +107,6 @@
                         <div class="battles">{{ lists.statistics.battles }} ({{ ((lists.statistics.wins * 100) / lists.statistics.battles).toFixed() + "%" }})</div>
                         <div class="mastery"> <img v-bind:src="master(lists.mark_of_mastery)" alt=""> </div>
                      </div>
-                     <!--<div class="all-info">
-                         <div class="img">
-                             <img v-bind:src="lists.tankInfo.images.big_icon" alt="">
-                            <pre> {{ lists.tankInfo.images }}</pre>
-                         </div>
-                         <div class="info-blc">
-                            <pre>{{ arrTankUser[0] }}</pre>
-                         </div>
-                     </div>
-                     <pre>{{ lists.tankInfo }}</pre>-->
                  </div>
              </div>
         </div>

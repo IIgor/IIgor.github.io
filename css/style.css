@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -126,3 +127,243 @@ a {
       display: block;
       color: #001b2a;
       text-decoration: none; }
+
+[v-cloak] {
+  display: none; }
+
+body {
+  background: #000; }
+
+a {
+  color: gold; }
+
+.tanks {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+  .tanks .items {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap; }
+
+.items .item {
+  width: calc(100% / 6 - 20px);
+  border: 1px solid #fff;
+  margin: 10px 0;
+  position: relative; }
+
+.item .level {
+  position: absolute;
+  right: 5px;
+  top: 2px;
+  color: red; }
+
+.item .type {
+  /*position: absolute;*/
+  margin: 2px 0px 0 5px;
+  color: green; }
+
+.item img {
+  max-width: 100%;
+  min-width: 100%; }
+
+.item p {
+  font-size: 14px;
+  text-align: center; }
+
+.premium {
+  /*border: 1px solid gold;*/
+  color: gold;
+  background: rgba(255, 215, 0, 0.2); }
+
+.header .list {
+  z-index: 9999; }
+
+.list-technicks {
+  margin: 20px 0 0 0;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column; }
+  .list-technicks .all-info {
+    width: 100%;
+    height: 0;
+    /*background: #f00;*/
+    transition: all cubic-bezier(0.56, 0.02, 0.91, 0.53) 0.5s;
+    overflow: hidden;
+    border-left: 1px solid #444;
+    border-right: 1px solid #444;
+    border-bottom: 1px solid #444;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex; }
+    .list-technicks .all-info.active {
+      height: 400px;
+      transition: all cubic-bezier(0.56, 0.02, 0.91, 0.53) 0.5s; }
+    .list-technicks .all-info .img {
+      width: 30%; }
+      .list-technicks .all-info .img img {
+        max-width: 100%; }
+  .list-technicks .list {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 5px 0;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    border-bottom: 1px solid #444;
+    transition: opacity linear .2s;
+    cursor: pointer; }
+    .list-technicks .list > div {
+      pointer-events: none; }
+    .list-technicks .list:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transition: background linear .2s; }
+
+.list .type {
+  width: 20px;
+  height: 20px;
+  background: url("../img/level-ico.png"); }
+  .list .type[data-class="spg"] {
+    background-position: -7px -68px; }
+  .list .type[data-class="lighttank"] {
+    background-position: -7px -128px; }
+  .list .type[data-class="mediumtank"] {
+    background-position: -7px -187px; }
+  .list .type[data-class="heavytank"] {
+    background-position: -7px -9px; }
+  .list .type[data-class="at-spg"] {
+    background-position: -7px -245px; }
+
+.list .level {
+  width: 4%;
+  text-align: center; }
+
+.list img, .list .name {
+  display: inline-block;
+  vertical-align: middle; }
+
+.list .img-name {
+  width: 80%; }
+
+.list .battles {
+  width: 10%; }
+
+.list .mastery {
+  width: 6%; }
+
+.info-tank {
+  width: 400px;
+  /*height: 300px;*/
+  border: 1px solid #444;
+  margin: auto;
+  position: relative;
+  padding: 10px;
+  background: #000;
+  /*overflow-y: scroll;*/ }
+  .info-tank .close {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    top: -20px;
+    right: -15px;
+    cursor: pointer; }
+    .info-tank .close::before {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 4px;
+      background: #f00;
+      -webkit-transform: translate(0px, 0px) rotate(45deg);
+      -ms-transform: translate(0px, 0px) rotate(45deg);
+      transform: translate(0px, 0px) rotate(45deg); }
+    .info-tank .close::after {
+      content: "";
+      display: block;
+      width: 100%;
+      height: 4px;
+      background: #f00;
+      -webkit-transform: translate(0px, -4px) rotate(-45deg);
+      -ms-transform: translate(0px, -4px) rotate(-45deg);
+      transform: translate(0px, -4px) rotate(-45deg); }
+  .info-tank .items {
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-between;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 4px 0px;
+    border-bottom: 2px dotted #444; }
+    .info-tank .items:last-child {
+      border-bottom: none; }
+  .info-tank .img_tank {
+    margin-bottom: 20px; }
+    .info-tank .img_tank img {
+      margin: 0 auto;
+      display: block; }
+
+.loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.8);
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  z-index: 9999; }
+  .loading .log {
+    width: 50px;
+    height: 50px;
+    background: url(../img/death-wheel.gif);
+    z-index: 10000;
+    margin: auto; }
+
+.last {
+  margin-top: 5px; }
+  .last:before {
+    display: inline-block;
+    content: 'Последнией кого смотрели:'; }
+
+.result .items {
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 4px 0px;
+  border-bottom: 2px dotted #444; }
+
+.result h1 {
+  font-size: 28px;
+  text-align: center;
+  margin: 10px 0 5px 0; }
+
+@media screen and (max-width: 767px) {
+  .items .item {
+    width: calc(100% / 2 - 20px); } }
+
+@media screen and (max-width: 767px) {
+  .items .item {
+    width: 100%; } }

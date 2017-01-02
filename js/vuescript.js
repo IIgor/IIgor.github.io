@@ -180,15 +180,20 @@ var vm = new Vue({
             var list = this.listTanksUser
             var list1 = []
             var arrtank = this.tankArr
+            console.log(list);
 
             list.forEach(function(el, index, array){
                 var local = {}
                 var idTank = el.tank_id
                 var element = el
                 var tankInfo = arrtank[idTank]
-                element.tankInfo = tankInfo
-                // console.log(element);
-                list1.push(element)
+                if(arrtank[idTank] == undefined){
+                    return true
+                }else{
+                    element.tankInfo = tankInfo
+                    list1.push(element)
+                }
+               
             })
 
             this.listSortUserTanks.push(list1);
