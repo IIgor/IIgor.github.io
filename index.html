@@ -64,7 +64,7 @@
        </header>
        
         <div class="result" v-if="showInfo" v-cloak> 
-             <h1>{{ this.info.nickname }}</h1>
+             <h1>{{ this.info.nickname }} <span >{{ this.showClanName(this.clanAllInfo.clan_tag) }}</span></h1>
              
              <div class="items">Дата регистрации: <span>{{ getDay(this.info.created_at, false) }}</span></div>
              <div class="items">Глобальный рейтинг: <span>{{ info.global_rating }}</span></div>
@@ -82,8 +82,49 @@
              <div class="items">Максимальный опыт за бой: <span>{{ statisticArr.all.max_xp}}</span></div>
              <div class="items">Суммарный опыт: <span>{{ statisticArr.all.xp}}</span></div>
              
+             <div class="achievements-main">
+                <h2 class="title">Достижения</h2>
             
-             
+                <div class="achievements">
+                    <div class="achievements-items">
+                        <img v-bind:src="'img/ach/warrior.png'" alt="">
+                        <div class="number"> <span class="place">{{ achievementsArrInfoAchievements.warrior }}</span></div>
+                    </div>
+                    <div class="achievements-items">
+                        <img v-bind:src="'img/ach/mainGun.png'" alt="">
+                        <div class="number"> <span class="place">{{ achievementsArrInfoAchievements.mainGun }}</span></div>
+                    </div>
+                    <div class="achievements-items">
+                        <img v-bind:src="'img/ach/supporter.png'" alt="">
+                        <div class="number"> <span class="place">{{ achievementsArrInfoAchievements.supporter }}</span></div>
+                    </div>
+                    <div class="achievements-items">
+                        <img v-bind:src="'img/ach/sniper2.png'" alt="">
+                        <div class="number"> <span class="place">{{ achievementsArrInfoAchievements.sniper2 }}</span></div>
+                    </div>
+                    <div class="achievements-items">
+                        <img v-bind:src="'img/ach/evileye.png'" alt="">
+                        <div class="number"> <span class="place">{{ achievementsArrInfoAchievements.evileye }}</span></div>
+                    </div>
+                    <div class="achievements-items" >
+                        <img v-bind:src="'img/ach/steelwall.png'" alt="">
+                        <div class="number"> <span class="place">{{ achievementsArrInfoAchievements.steelwall }}</span></div>
+                    </div>
+                    <div class="achievements-items">
+                        <img v-bind:src="'img/ach/defender.png'" alt="">
+                        <div class="number"> <span class="place">{{ achievementsArrInfoAchievements.defender }}</span></div>
+                    </div>
+                    <div class="achievements-items">
+                        <img v-bind:src="'img/ach/invader.png'" alt="">
+                        <div class="number"> <span class="place">{{ achievementsArrInfoAchievements.invader }}</span></div>
+                    </div>
+                    <div class="achievements-items">
+                        <img v-bind:src="'img/ach/scout.png'" alt="">
+                        <div class="number"> <span class="place">{{ achievementsArrInfoAchievements.scout }}</span></div>
+                    </div>
+                </div>
+
+             </div>
              
              <!--<a v-bind:href="this.info.account_id" v-on:click.prevent="getTechniksUser">Техника {{ this.info.nickname }}</a>-->
              

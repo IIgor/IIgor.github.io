@@ -12,6 +12,7 @@ var vm = new Vue({
         newLinktank : 'https://api.worldoftanks.ru/wot/encyclopedia/vehicles/?application_id=fedcdf58732a2c186096d0aed13e0131',
         infoTankStatUser: 'https://api.worldoftanks.ru/wot/tanks/stats/?application_id=fedcdf58732a2c186096d0aed13e0131&account_id=',
         achievements: 'https://api.worldoftanks.ru/wot/account/achievements/?application_id=demo&account_id=',
+        clanName: 'https://api.worldoftanks.ru/wot/stronghold/info/?application_id=fedcdf58732a2c186096d0aed13e0131&clan_id=',
         
         erroe: false,
         noneUser: false,
@@ -36,6 +37,7 @@ var vm = new Vue({
         thisClickUserId: '',
         arrTankUser: [],
         clickTankGetId: '',
+        clanAllInfo: '',
 
         // nationsUSSR: [],
         // nationsGermany: [],
@@ -47,12 +49,31 @@ var vm = new Vue({
         // nationsJapan: [],
         // nationsChina: [],
         achievementsArrInfo: [],
+        achievementsArrInfoAchievements: [],
 
         lastUserObj: [],
-  
+        
+        showClanName: function(id){
+            if(id == undefined){
+                clanAllInfo: ''
+            }else{
+                return "[" + id + "]";
+            }
+        }
     
     }, 
     methods: {
+        getClanInfo: function(){
+            this.$http.get(this.clanName + this.info.clan_id).then(function(respons){
+                var data = respons.data.data
+                var fullClanInfo = data[this.info.clan_id]
+                this.clanAllInfo = fullClanInfo
+                console.log(fullClanInfo);
+                
+                // this.arrTankUser.push(id)
+
+            })   
+        },
         closePoppup: function(){
             this.loadingPage = !this.loadingPage
             this.loadTankInfo = !this.loadTankInfo
@@ -65,7 +86,7 @@ var vm = new Vue({
             var tnkId = e.target.getAttribute('data-tankId')
             this.clickTankGetId = tnkId
 
-            console.log(tnkId);
+            // console.log(tnkId);
 
             
             this.loadingPage = !this.loadingPage
@@ -122,8 +143,9 @@ var vm = new Vue({
                 var dataObj = respons.data.data
                 var achievementsInfo = dataObj[this.info.account_id]
                 this.achievementsArrInfo = achievementsInfo
+                this.achievementsArrInfoAchievements = this.achievementsArrInfo.achievements
                 // this.tankArr = dataObj;
-                console.log(this.achievementsArrInfo);
+                // console.log(this.achievementsArrInfo);
 
             })
         },
@@ -148,17 +170,25 @@ var vm = new Vue({
             this.$http.get(this.statistic + accountId).then(function(respons){
                 var dataObj = respons.data.data
                 this.info = dataObj[accountId]
-                console.log(this.info)
+                
                 this.showInfo = true
                 this.showUsers = false
                 this.statisticArr = this.info.statistics;
                 this.showUserTanks = false
                 this.listSortUserTanks = []
 
+                // console.log(this.statisticArr);
+
                 // this.nicknameUser.push(dataObj[accountId].nicknameUser)
                 // console.log(typeof this.nicknameUser)
                 this.getTechniksUser(this.info.account_id)
                 this.achievementsMethod()
+                if(this.info.clan_id == null){
+                    this.clanAllInfo = ''
+                }else{
+                    this.getClanInfo()
+                }
+                
             })
             // console.log(this.statisticArr)
             
@@ -180,7 +210,7 @@ var vm = new Vue({
             var list = this.listTanksUser
             var list1 = []
             var arrtank = this.tankArr
-            console.log(list);
+            // console.log(list);
 
             list.forEach(function(el, index, array){
                 var local = {}
@@ -231,7 +261,7 @@ var vm = new Vue({
             }
 
             this.lastUserObj = returnObj
-            console.log(this.lastUserObj);
+            // console.log(this.lastUserObj);
         },
        
         
@@ -302,7 +332,7 @@ Vue.component('pop', {
           if(this.arrTank.length == 0){
               this.loadingPage = true
                 this.loadLogo = true
-                console.log('no info');
+                // console.log('no info');
           }else{
               var arrr = this.arrTank[0]
 
@@ -320,7 +350,7 @@ Vue.component('pop', {
     watch: {
         arrTank: function(){
             if(this.arrTank.length == 0){
-                console.log('NAN');
+                // console.log('NAN');
             }else{
                 this.getInfoWithArrTank();
             }

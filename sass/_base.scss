@@ -1,6 +1,6 @@
-$bg-color:  rgb(0, 27, 42);
+$bg-color:  rgb(0, 0, 0);
 $text-color: rgb(255, 255, 255);
-$link-color: rgb(255, 0, 0);
+$link-color: rgb(218,165,32);
 $border-color: #575b5d;
 $error: #e60039;
 
@@ -12,7 +12,7 @@ $fontSize: 16px;
     box-sizing: border-box;
 }
 body{
-    background: $bg-color;
+    background: $bg-color url('../img/sparkles.png');
     color: $text-color;
     font-family: 'Roboto', sans-serif;
     font-size: $fontSize;
